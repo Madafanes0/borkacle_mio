@@ -70,4 +70,26 @@ describe('useIsMobile hook', () => {
     
     expect(result.current).toBe(true)
   })
+  
+  it('should match snapshot for desktop viewport', () => {
+    Object.defineProperty(window, 'innerWidth', {
+      writable: true,
+      value: 1024,
+    })
+
+    const { result } = renderHook(() => useIsMobile())
+    
+    expect(result.current).toMatchSnapshot()
+  })
+  
+  it('should match snapshot for mobile viewport', () => {
+    Object.defineProperty(window, 'innerWidth', {
+      writable: true,
+      value: 500,
+    })
+
+    const { result } = renderHook(() => useIsMobile())
+    
+    expect(result.current).toMatchSnapshot()
+  })
 }) 

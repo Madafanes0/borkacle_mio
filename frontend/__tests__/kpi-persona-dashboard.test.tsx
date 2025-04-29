@@ -74,18 +74,15 @@ describe('KpiPersonaDashboard Component', () => {
       expect(api.get).toHaveBeenCalledWith('/api/kpi/persona')
     })
 
-    // Wait for the data to be loaded and displayed
     await waitFor(() => {
       expect(screen.getByText(/John Doe/)).toBeInTheDocument()
     })
 
-    // Open the select dropdown
     const selectButton = screen.getByRole('combobox')
     await act(async () => {
       userEvent.click(selectButton)
     })
 
-    // Check if both users are in the dropdown
     await waitFor(() => {
       expect(screen.getByText(/John Doe/)).toBeInTheDocument()
       expect(screen.getByText(/Jane Smith/)).toBeInTheDocument()
@@ -99,7 +96,6 @@ describe('KpiPersonaDashboard Component', () => {
       expect(screen.getByText(/John Doe/)).toBeInTheDocument()
     })
 
-    // Verify metrics are displayed in the chart title
     await waitFor(() => {
       expect(screen.getByText(/Horas Estimadas vs Reales por Sprint/)).toBeInTheDocument()
       expect(screen.getByText(/Comparación de horas estimadas y reales para John Doe/)).toBeInTheDocument()
@@ -116,7 +112,6 @@ describe('KpiPersonaDashboard Component', () => {
       expect(screen.getByText('No se pudieron cargar los datos KPI')).toBeInTheDocument()
     })
 
-    // Test retry functionality
     const retryButton = screen.getByText('Reintentar')
     await act(async () => {
       userEvent.click(retryButton)
@@ -134,7 +129,6 @@ describe('KpiPersonaDashboard Component', () => {
       expect(screen.getByText(/John Doe/)).toBeInTheDocument()
     })
 
-    // Verify chart titles are present
     await waitFor(() => {
       expect(screen.getByText(/Horas Estimadas vs Reales por Sprint/)).toBeInTheDocument()
       expect(screen.getByRole('tab', { name: /Tareas Completadas/ })).toBeInTheDocument()
